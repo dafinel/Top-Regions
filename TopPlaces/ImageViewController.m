@@ -68,6 +68,8 @@
     [self startDownloadingImage];
 }
 
+#pragma mark - Download 
+
 - (void)startDownloadingImage {
     self.image = nil;
     

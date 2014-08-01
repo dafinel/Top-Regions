@@ -9,11 +9,13 @@
 #import "MyAplicationAppDelegate.h"
 #import "FlickrFetcher.h"
 #import "Photo+Create.h"
+#import "Notification.h"
 
 #define FLICKR_FETCH @"Flickr Just Uploaded Fetch"
 @interface MyAplicationAppDelegate()<NSURLSessionDataDelegate>
 
 @property (nonatomic, strong)NSURLSession *flickrDownloadSession;
+@property (copy, nonatomic) void (^flickrDownloadBackgroundURLSessionCompletionHandler)();
 
 @end
 
@@ -39,7 +41,6 @@
     
     return YES;
 }
-
 - (void)documentIsReady {
     if (self.document.documentState == UIDocumentStateNormal) {
         // start using document
@@ -48,10 +49,29 @@
     }
 }
 
+- (void)setContext:(NSManagedObjectContext *)context {
+    _context = context;
+    
+    [NSTimer scheduledTimerWithTimeInterval:60
+                                     target:self
+                                selector:@selector(startFlickrFetch:)
+                                   userInfo:nil
+                                    repeats:YES];
+    
+    NSDictionary *userInfo = self.context ? @{DatabaseContext : self.context} : nil;
+    [[NSNotificationCenter defaultCenter] postNotificationName:DatabaseNotification object:self userInfo:userInfo];
+}
+
+- (void)startFlickrFetch:(NSTimer *)timer {
+    [self startFlickrFetch];
+}
+
 - (void)startFlickrFetch {
+    NSLog(@"aici");
     [self.flickrDownloadSession getTasksWithCompletionHandler:^(NSArray *dataTasks, NSArray *uploadTasks, NSArray *downloadTasks) {
         if (![downloadTasks count]) {
             NSURLSessionDownloadTask *task = [self.flickrDownloadSession downloadTaskWithURL:[FlickrFetcher URLforRecentGeoreferencedPhotos]];
+            task.taskDescription = FLICKR_FETCH;
             [task resume];
         } else {
             for (NSURLSessionDownloadTask *task in downloadTasks) {
@@ -91,7 +111,7 @@ didFinishDownloadingToURL:(NSURL *)localFile
         [self loadFlickrPhotosFromLocalURL:localFile
                                intoContext:self.context
                        andThenExecuteBlock:^{
-                           //[self flickrDownloadTasksMightBeComplete];
+                           [self flickrDownloadTasksMightBeComplete];
                        }
          ];
     }
@@ -105,7 +125,6 @@ didFinishDownloadingToURL:(NSURL *)localFile
         NSArray *photos = [self flickrPhotosAtURL:localFile];
         [context performBlock:^{
             [Photo loadPhotosFromFlickrArray:photos inManagedObjectContext:context];
-            [context save:NULL]; // NOT NECESSARY if this is a UIManagedDocument's context
             if (whenDone) whenDone();
         }];
     } else {
@@ -125,7 +144,8 @@ didFinishDownloadingToURL:(NSURL *)localFile
     return [flickrPropertyList valueForKeyPath:FLICKR_RESULTS_PHOTOS];
 }
 
-/*- (void)flickrDownloadTasksMightBeComplete
+
+- (void)flickrDownloadTasksMightBeComplete
 {
     if (self.flickrDownloadBackgroundURLSessionCompletionHandler) {
         [self.flickrDownloadSession getTasksWithCompletionHandler:^(NSArray *dataTasks, NSArray *uploadTasks, NSArray *downloadTasks) {
@@ -145,7 +165,7 @@ didFinishDownloadingToURL:(NSURL *)localFile
         }];
     }
 }
-*/
+
 
 // required by the protocol
 - (void)URLSession:(NSURLSession *)session
@@ -166,33 +186,15 @@ totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite
     // we don't report the progress of a download in our UI, but this is a cool method to do that with
 }
 
+#pragma mark -Background update
 
-							
-- (void)applicationWillResignActive:(UIApplication *)application
-{
-    // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-    // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+- (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+    [self startFlickrFetch];
+    completionHandler(UIBackgroundFetchResultNoData);
 }
 
-- (void)applicationDidEnterBackground:(UIApplication *)application
-{
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
-    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-}
-
-- (void)applicationWillEnterForeground:(UIApplication *)application
-{
-    // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-}
-
-- (void)applicationDidBecomeActive:(UIApplication *)application
-{
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-}
-
-- (void)applicationWillTerminate:(UIApplication *)application
-{
-    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+- (void)application:(UIApplication *)application handleEventsForBackgroundURLSession:(NSString *)identifier completionHandler:(void (^)())completionHandler {
+    self.flickrDownloadBackgroundURLSessionCompletionHandler = completionHandler;
 }
 
 @end

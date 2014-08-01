@@ -70,7 +70,7 @@
 #define FLICKR_PLACE_NEIGHBORHOOD_PLACE_ID @"place.neighbourhood.place_id"
 #define FLICKR_PLACE_LOCALITY_NAME @"place.locality._content"
 #define FLICKR_PLACE_LOCALITY_PLACE_ID @"place.locality.place_id"
-#define FLICKR_PLACE_REGION_NAME @"place.region._content"
+#define FLICKR_PLACE_REGION_NAME @"place.woe_name"
 #define FLICKR_PLACE_REGION_PLACE_ID @"place.region.place_id"
 #define FLICKR_PLACE_COUNTY_NAME @"place.county._content"
 #define FLICKR_PLACE_COUNTY_PLACE_ID @"place.county.place_id"

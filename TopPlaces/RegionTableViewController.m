@@ -8,6 +8,9 @@
 
 #import "RegionTableViewController.h"
 #import "Region.h"
+#import "Notification.h"
+#import "PhotosFromRegionTVC.h"
+
 
 @interface RegionTableViewController ()
 
@@ -15,18 +18,38 @@
 
 @implementation RegionTableViewController
 
+#pragma mark - Initialization
+
+- (void)awakeFromNib {
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:DatabaseNotification
+                                                      object:nil
+                                                       queue:nil
+                                                  usingBlock:^(NSNotification *note) {
+                                                      self.context = note.userInfo[DatabaseContext];
+                                                  }];
+}
+
+#pragma mark - Proprieties
+
 - (void)setContext:(NSManagedObjectContext *)context {
     _context = context;
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Region"];
-    request.predicate = nil;
-    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"name"
-                                                              ascending:YES
-                                                               selector:@selector(localizedStandardCompare:)]];
+    request.predicate = [NSPredicate predicateWithFormat:@"name.length > 0"];
+    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"photograferCount"
+                                                              ascending:NO
+                                 ],[NSSortDescriptor
+                                    sortDescriptorWithKey:@"name"
+                                    ascending:YES
+                                    selector:@selector(localizedCaseInsensitiveCompare:)]];
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
                                                                         managedObjectContext:_context
                                                                           sectionNameKeyPath:nil
                                                                                    cacheName:nil];
+    [self.tableView reloadData];
 }
+
+#pragma mark - TableViewDataSource
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath  {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Region Cell" forIndexPath:indexPath];
@@ -39,7 +62,7 @@
 
 }
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -47,7 +70,18 @@
 {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    if ([segue.identifier isEqualToString:@"ShowPhotos"]) {
+        if ([segue.destinationViewController isKindOfClass:[PhotosFromRegionTVC class]]) {
+            PhotosFromRegionTVC *pvc = (PhotosFromRegionTVC *)segue.destinationViewController;
+            NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
+            Region *region = [self.fetchedResultsController objectAtIndexPath:indexPath];
+            pvc.title = region.name;
+            pvc.region = region;
+        }
+    }
+
+
 }
-*/
+
 
 @end

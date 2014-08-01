@@ -58,24 +58,26 @@
         // nothing to do ...
     } else {
         for (Region * match in matches) {
-            
+            __block Region *editableMatch = match;
             NSURL *url = [FlickrFetcher URLforInformationAboutPlace:match.placeId];
-            dispatch_queue_t regionInfoQ = dispatch_queue_create("RegionInfo", NULL);
-            dispatch_async(regionInfoQ, ^{
+            //dispatch_queue_t regionInfoQ = dispatch_queue_create("RegionInfo", NULL);
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
                 NSData *jsonResult = [NSData dataWithContentsOfURL:url];
                 NSDictionary *propertyList = [NSJSONSerialization JSONObjectWithData:jsonResult
                                                                              options:0
                                                                                error:NULL];
                 NSString *name =[FlickrFetcher extractRegionNameFromPlaceInformation:propertyList];
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    match.name = name;
+                dispatch_sync(dispatch_get_main_queue(), ^{
+                    editableMatch.name = name;
                 });
             });
 
         }
         
     }
-    
+    for (Region * match in matches) {
+        NSLog(@"%@",match.name);
+    }
 }
 
 @end
