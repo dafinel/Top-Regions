@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "+[FlickrFetcher extractNameOfPlace:fromPlaceInformation:]:FlickrFetcher.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "[place valueForKeyPath:FLICKR_PLACE_NEIGHBORHOOD_PLACE_ID] = ">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "__52-[PlacesTableViewController getInformationForPlace:]_block_invoke:PlacesTableViewController.m">
+      </ContextState>
+      <ContextState
+         contextName = "__40-[PlacesTableViewController fetchPhotos]_block_invoke:PlacesTableViewController.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[PlacesTableViewController tableView:cellForRowAtIndexPath:]:PlacesTableViewController.m">
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>
