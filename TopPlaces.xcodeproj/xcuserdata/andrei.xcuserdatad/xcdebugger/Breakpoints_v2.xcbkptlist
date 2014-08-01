@@ -1260,11 +1260,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TopPlaces/MyAplicationAppDelegate.m"
-            timestampString = "428588145.192152"
+            timestampString = "428592039.808076"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "149"
-            endingLineNumber = "149"
+            startingLineNumber = "150"
+            endingLineNumber = "150"
             landmarkName = "-flickrDownloadTasksMightBeComplete"
             landmarkType = "5">
          </BreakpointContent>
