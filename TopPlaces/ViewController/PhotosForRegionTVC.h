@@ -8,6 +8,7 @@
 
 #import "CoreDataTableViewController.h"
 
-@interface PhotosForRegionTVC : PhotosTabeleViewController
+@interface PhotosForRegionTVC : CoreDataTableViewController
 
 @end
+   
