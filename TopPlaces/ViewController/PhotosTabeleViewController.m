@@ -9,6 +9,7 @@
 #import "PhotosTabeleViewController.h"
 #import "Photo+Create.h"
 #import "ImageViewController.h"
+#import "LastRegion+ADD.h"
 
 @interface PhotosTabeleViewController ()
 
@@ -39,6 +40,19 @@
     Photo *photo = [self.fetchedResultsController objectAtIndexPath:indexPath];
     cell.textLabel.text = photo.title;
     cell.detailTextLabel.text = photo.despription;
+    if (photo.thumbnail) {
+        cell.imageView.image = [UIImage imageWithData: photo.thumbnail];
+    } else {
+        NSURL *url = [NSURL URLWithString:photo.thumbnailURl];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+            NSData *jsonResult = [NSData dataWithContentsOfURL:url];
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                photo.thumbnail =jsonResult;
+                cell.imageView.image = [UIImage imageWithData: photo.thumbnail];
+            });
+        });
+
+    }
     return cell;
 }
 
@@ -48,6 +62,7 @@
     Photo *photo = [self.fetchedResultsController objectAtIndexPath:indexPath];
     ivc.title = photo.title;
     ivc.imageURL = [NSURL URLWithString:photo.imageURL];
+    [LastRegion recentViewRegion:photo];
 }
 
 

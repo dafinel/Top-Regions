@@ -7,6 +7,7 @@
 //
 
 #import "PhotosFromRegionTVC.h"
+#import "LastRegion+ADD.h"
 
 @interface PhotosFromRegionTVC ()
 
@@ -53,7 +54,6 @@
             ImageViewController *ivc = (ImageViewController *)segue.destinationViewController;
             [self prepareImageViewController:ivc
                                 forIndexPath:indexPath];
-            
         }
     }
     

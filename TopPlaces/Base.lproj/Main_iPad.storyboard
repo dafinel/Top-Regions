@@ -23,16 +23,16 @@
             </objects>
             <point key="canvasLocation" x="-868" y="565"/>
         </scene>
-        <!--Places Table View Controller-->
+        <!--Region Table View Controller-->
         <scene sceneID="939-ig-J73">
             <objects>
-                <tableViewController id="vdK-FJ-ZFg" customClass="PlacesTableViewController" sceneMemberID="viewController">
+                <tableViewController id="vdK-FJ-ZFg" customClass="RegionTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="FcC-Vz-gQP">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Places Cell" textLabel="TPh-gp-gHi" detailTextLabel="gT7-3Z-Vvw" style="IBUITableViewCellStyleSubtitle" id="06W-qH-M6i">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Region Cell" textLabel="TPh-gp-gHi" detailTextLabel="gT7-3Z-Vvw" style="IBUITableViewCellStyleSubtitle" id="06W-qH-M6i">
                                 <rect key="frame" x="0.0" y="86" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="06W-qH-M6i" id="KOa-5n-d9V">
@@ -56,7 +56,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="Ftp-pB-Bsg" kind="push" identifier="Photo For Place" id="mrB-F8-Ifp"/>
+                                    <segue destination="Ftp-pB-Bsg" kind="push" identifier="ShowPhotos" id="mrB-F8-Ifp"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -77,10 +77,10 @@
             </objects>
             <point key="canvasLocation" x="1784" y="-51"/>
         </scene>
-        <!--Photo For Place Table View Controller - Photo From TopPlaces-->
+        <!--Photos From RegionTVC - Photo From TopPlaces-->
         <scene sceneID="4c5-tl-LiQ">
             <objects>
-                <tableViewController title="Photo From TopPlaces" id="Ftp-pB-Bsg" customClass="PhotoForPlaceTableViewController" sceneMemberID="viewController">
+                <tableViewController title="Photo From TopPlaces" id="Ftp-pB-Bsg" customClass="PhotosFromRegionTVC" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="vRM-es-oVe">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -202,10 +202,10 @@
             </objects>
             <point key="canvasLocation" x="-569" y="1992"/>
         </scene>
-        <!--Last Photo Table View Controller-->
+        <!--Last View PhotoTVC-->
         <scene sceneID="KVS-bR-mVs">
             <objects>
-                <tableViewController id="m7i-e1-vHr" customClass="LastPhotoTableViewController" sceneMemberID="viewController">
+                <tableViewController id="m7i-e1-vHr" customClass="LastViewPhotoTVC" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="xNQ-ET-9qc">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

@@ -30,6 +30,18 @@
                                                   }];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:DatabaseNotification
+                                                      object:nil
+                                                       queue:nil
+                                                  usingBlock:^(NSNotification *note) {
+                                                      self.context = note.userInfo[DatabaseContext];
+                                                  }];
+
+}
+
 #pragma mark - Proprieties
 
 - (void)setContext:(NSManagedObjectContext *)context {

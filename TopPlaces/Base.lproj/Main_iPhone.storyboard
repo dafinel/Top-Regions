@@ -187,10 +187,10 @@
             </objects>
             <point key="canvasLocation" x="226" y="-63"/>
         </scene>
-        <!--Last Photo Table View Controller-->
+        <!--Last View PhotoTVC-->
         <scene sceneID="Vkd-Fx-jdV">
             <objects>
-                <tableViewController id="SQF-0E-58C" customClass="LastPhotoTableViewController" sceneMemberID="viewController">
+                <tableViewController id="SQF-0E-58C" customClass="LastViewPhotoTVC" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="3zn-QF-uzE">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
