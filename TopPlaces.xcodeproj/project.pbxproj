@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		751FE1291990C53D009302AD /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 751FE1281990C53D009302AD /* Photo.m */; };
 		7536E63719863C3B00CAD027 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7536E63619863C3B00CAD027 /* Foundation.framework */; };
 		7536E63919863C3B00CAD027 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7536E63819863C3B00CAD027 /* CoreGraphics.framework */; };
 		7536E63B19863C3B00CAD027 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7536E63A19863C3B00CAD027 /* UIKit.framework */; };
@@ -25,7 +26,6 @@
 		7536E67219863CA700CAD027 /* FlickrFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 7536E67119863CA700CAD027 /* FlickrFetcher.m */; };
 		7536E6781986770D00CAD027 /* MyFlickr.m in Sources */ = {isa = PBXBuildFile; fileRef = 7536E6771986770D00CAD027 /* MyFlickr.m */; };
 		75A790AE198BCB1200C4E298 /* LastRegion.m in Sources */ = {isa = PBXBuildFile; fileRef = 75A7909E198BCB1200C4E298 /* LastRegion.m */; };
-		75A790AF198BCB1200C4E298 /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 75A790A1198BCB1200C4E298 /* Photo.m */; };
 		75A790B0198BCB1200C4E298 /* Photo+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = 75A790A3198BCB1200C4E298 /* Photo+Create.m */; };
 		75A790B1198BCB1200C4E298 /* Photografer.m in Sources */ = {isa = PBXBuildFile; fileRef = 75A790A5198BCB1200C4E298 /* Photografer.m */; };
 		75A790B2198BCB1200C4E298 /* Photografer+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = 75A790A7198BCB1200C4E298 /* Photografer+Create.m */; };
@@ -39,6 +39,7 @@
 		75A790C8198BCB4D00C4E298 /* RegionTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75A790C2198BCB4D00C4E298 /* RegionTableViewController.m */; };
 		75B897A2198F651800813D04 /* LastRegion+ADD.m in Sources */ = {isa = PBXBuildFile; fileRef = 75B897A1198F651800813D04 /* LastRegion+ADD.m */; };
 		75B897A5198F6CE300813D04 /* LastViewPhotoTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 75B897A4198F6CE300813D04 /* LastViewPhotoTVC.m */; };
+		75B897AB198FA47000813D04 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 75B897AA198FA47000813D04 /* Reachability.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +53,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		751FE1271990C53D009302AD /* Photo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Photo.h; path = DataBase/Photo.h; sourceTree = "<group>"; };
+		751FE1281990C53D009302AD /* Photo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Photo.m; path = DataBase/Photo.m; sourceTree = "<group>"; };
 		7536E63319863C3B00CAD027 /* TopPlaces.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TopPlaces.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7536E63619863C3B00CAD027 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		7536E63819863C3B00CAD027 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -80,8 +83,6 @@
 		75A7909D198BCB1200C4E298 /* LastRegion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LastRegion.h; path = DataBase/LastRegion.h; sourceTree = "<group>"; };
 		75A7909E198BCB1200C4E298 /* LastRegion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LastRegion.m; path = DataBase/LastRegion.m; sourceTree = "<group>"; };
 		75A7909F198BCB1200C4E298 /* Notification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Notification.h; path = DataBase/Notification.h; sourceTree = "<group>"; };
-		75A790A0198BCB1200C4E298 /* Photo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Photo.h; path = DataBase/Photo.h; sourceTree = "<group>"; };
-		75A790A1198BCB1200C4E298 /* Photo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Photo.m; path = DataBase/Photo.m; sourceTree = "<group>"; };
 		75A790A2198BCB1200C4E298 /* Photo+Create.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Photo+Create.h"; path = "DataBase/Photo+Create.h"; sourceTree = "<group>"; };
 		75A790A3198BCB1200C4E298 /* Photo+Create.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Photo+Create.m"; path = "DataBase/Photo+Create.m"; sourceTree = "<group>"; };
 		75A790A4198BCB1200C4E298 /* Photografer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Photografer.h; path = DataBase/Photografer.h; sourceTree = "<group>"; };
@@ -107,6 +108,9 @@
 		75B897A3198F6CE300813D04 /* LastViewPhotoTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LastViewPhotoTVC.h; path = ViewController/LastViewPhotoTVC.h; sourceTree = "<group>"; };
 		75B897A4198F6CE300813D04 /* LastViewPhotoTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LastViewPhotoTVC.m; path = ViewController/LastViewPhotoTVC.m; sourceTree = "<group>"; };
 		75B897A7198F774D00813D04 /* PhotosFromRegionTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PhotosFromRegionTVC.h; path = ViewController/PhotosFromRegionTVC.h; sourceTree = "<group>"; };
+		75B897A9198FA47000813D04 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		75B897AA198FA47000813D04 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		75B897AC198FAB9900813D04 /* RefreshNotification.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RefreshNotification.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -166,6 +170,7 @@
 		7536E63C19863C3B00CAD027 /* TopPlaces */ = {
 			isa = PBXGroup;
 			children = (
+				75B897A8198FA47000813D04 /* Reachability */,
 				7536E66E19863CA700CAD027 /* Flickr Fetcher */,
 				7536E64819863C3B00CAD027 /* Main_iPhone.storyboard */,
 				7536E64B19863C3B00CAD027 /* Main_iPad.storyboard */,
@@ -232,16 +237,26 @@
 			path = ViewController/CoreDataTableViewController;
 			sourceTree = "<group>";
 		};
+		75B897A8198FA47000813D04 /* Reachability */ = {
+			isa = PBXGroup;
+			children = (
+				75B897A9198FA47000813D04 /* Reachability.h */,
+				75B897AA198FA47000813D04 /* Reachability.m */,
+			);
+			path = Reachability;
+			sourceTree = "<group>";
+		};
 		75BCFACD198B6679005110EA /* DataBase */ = {
 			isa = PBXGroup;
 			children = (
+				75B897AC198FAB9900813D04 /* RefreshNotification.h */,
 				75A7909D198BCB1200C4E298 /* LastRegion.h */,
 				75A7909E198BCB1200C4E298 /* LastRegion.m */,
 				75B897A0198F651800813D04 /* LastRegion+ADD.h */,
 				75B897A1198F651800813D04 /* LastRegion+ADD.m */,
 				75A7909F198BCB1200C4E298 /* Notification.h */,
-				75A790A0198BCB1200C4E298 /* Photo.h */,
-				75A790A1198BCB1200C4E298 /* Photo.m */,
+				751FE1271990C53D009302AD /* Photo.h */,
+				751FE1281990C53D009302AD /* Photo.m */,
 				75A790A2198BCB1200C4E298 /* Photo+Create.h */,
 				75A790A3198BCB1200C4E298 /* Photo+Create.m */,
 				75A790A4198BCB1200C4E298 /* Photografer.h */,
@@ -381,6 +396,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				751FE1291990C53D009302AD /* Photo.m in Sources */,
 				75B897A5198F6CE300813D04 /* LastViewPhotoTVC.m in Sources */,
 				7536E65019863C3B00CAD027 /* MyAplicationViewController.m in Sources */,
 				75A790C6198BCB4D00C4E298 /* PhotosFromRegionTVC.m in Sources */,
@@ -391,8 +407,8 @@
 				75A790B3198BCB1200C4E298 /* Region.m in Sources */,
 				75A790C4198BCB4D00C4E298 /* ImageViewController.m in Sources */,
 				75A790AE198BCB1200C4E298 /* LastRegion.m in Sources */,
+				75B897AB198FA47000813D04 /* Reachability.m in Sources */,
 				75A790B2198BCB1200C4E298 /* Photografer+Create.m in Sources */,
-				75A790AF198BCB1200C4E298 /* Photo.m in Sources */,
 				75A790B5198BCB1200C4E298 /* TopRegions.xcdatamodeld in Sources */,
 				75A790C7198BCB4D00C4E298 /* PhotosTabeleViewController.m in Sources */,
 				7536E6781986770D00CAD027 /* MyFlickr.m in Sources */,

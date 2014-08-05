@@ -26,12 +26,34 @@
                                                         inManagedObjectContext:context];
             photografer.name = name;
         } else {
-            photografer = [mathes firstObject];
+            photografer = [mathes lastObject];
         }
         
     }
     
     
+    return photografer;
+}
+
++ (Photografer *)phograferWithName:(NSString *)name
+            inManagedObjectContext:(NSManagedObjectContext *)context
+         withExistingPhotographers:(NSMutableArray *)existingPhotographers {
+    Photografer *photografer = nil;
+    if ([name length]) {
+        NSArray *matches = [existingPhotographers filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name = %@",name]];
+        if (!matches || ([matches count] > 1)) {
+            // handle error
+        } else if (![matches count]) {
+            photografer = [NSEntityDescription insertNewObjectForEntityForName:@"Photografer"
+                                                         inManagedObjectContext:context];
+            photografer.name = name;
+            [existingPhotographers addObject:photografer];
+        } else {
+            photografer = [matches lastObject];
+        }
+        
+    
+    }
     return photografer;
 }
 

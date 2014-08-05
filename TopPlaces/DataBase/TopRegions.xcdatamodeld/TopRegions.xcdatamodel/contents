@@ -5,6 +5,7 @@
         <relationship name="photo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Photo" inverseName="recent" inverseEntity="Photo" syncable="YES"/>
     </entity>
     <entity name="Photo" representedClassName="Photo" syncable="YES">
+        <attribute name="createDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="despription" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="imageURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="thumbnail" optional="YES" attributeType="Binary" syncable="YES"/>
@@ -29,9 +30,9 @@
         <relationship name="photos" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Photo" inverseName="region" inverseEntity="Photo" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Photo" positionX="-126" positionY="-126" width="128" height="178"/>
-        <element name="Photografer" positionX="349" positionY="62" width="128" height="88"/>
         <element name="LastRegion" positionX="88" positionY="-127" width="128" height="73"/>
+        <element name="Photo" positionX="-126" positionY="-126" width="128" height="193"/>
+        <element name="Photografer" positionX="349" positionY="62" width="128" height="88"/>
         <element name="Region" positionX="108" positionY="180" width="128" height="133"/>
     </elements>
 </model>

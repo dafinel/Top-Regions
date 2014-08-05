@@ -31,11 +31,11 @@
             region.photograferCount = @1;
             
         } else {
-            region = [mathces firstObject];
-            region.photoCount = @([region.photoCount intValue]+1);
+            region = [mathces lastObject];
+            region.photoCount = @([region.photoCount intValue] + 1);
             if (![region.photografers member:photografer]) {
                 [region addPhotografersObject:photografer];
-                region.photograferCount = @([region.photograferCount intValue]+1);
+                region.photograferCount = @([region.photograferCount intValue] + 1);
             }
         }
         
@@ -43,6 +43,34 @@
         
     }
     
+    
+    return region;
+}
+
++ (Region *)regionWithPlaceID:(NSString *)placeId andPhotografer:(Photografer *)photografer inManagedObjectContext:(NSManagedObjectContext *) context withExistingRegions:(NSMutableArray *)existingRegions {
+    Region *region = nil;
+    if ([placeId length]) {
+        NSArray *matches = [existingRegions filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"placeId = %@",placeId]];
+        if (!matches || ([matches count] > 1)) {
+            // handle error
+        } else if (![matches count]) {
+            region = [NSEntityDescription insertNewObjectForEntityForName:@"Region"
+                                                   inManagedObjectContext:context];
+            region.placeId = placeId;
+            region.photoCount = @1;
+            [region addPhotografersObject:photografer];
+            region.photograferCount = @1;
+            [existingRegions addObject:region];
+        } else {
+            region = [matches lastObject];
+            region.photoCount = @([region.photoCount intValue] + 1);
+            if (![region.photografers member:photografer]) {
+                [region addPhotografersObject:photografer];
+                region.photograferCount = @([region.photograferCount intValue] + 1);
+            }
+
+        }
+    }
     
     return region;
 }
@@ -58,7 +86,6 @@
         // nothing to do ...
     } else {
         for (Region * match in matches) {
-            __block Region *editableMatch = match;
             NSURL *url = [FlickrFetcher URLforInformationAboutPlace:match.placeId];
             //dispatch_queue_t regionInfoQ = dispatch_queue_create("RegionInfo", NULL);
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
@@ -68,16 +95,45 @@
                                                                                error:NULL];
                 NSString *name =[FlickrFetcher extractRegionNameFromPlaceInformation:propertyList];
                 dispatch_sync(dispatch_get_main_queue(), ^{
-                    editableMatch.name = name;
+                    
+                    Region *region = nil;
+                    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Region"];
+                    request.predicate = [NSPredicate predicateWithFormat:@"placeId = %@", match.placeId];
+                    
+                    NSError *error;
+                    NSArray *matches = [context executeFetchRequest:request error:&error];
+                    if (!matches || ([matches count] != 1)) {
+                        // handle error
+                    } else {
+                        region = [matches lastObject];
+                        request.predicate = [NSPredicate predicateWithFormat:@"name = %@", name];
+                        matches = [context executeFetchRequest:request error:&error];
+                        
+                        if (!matches) {
+                            // handle error
+                        } else if (![matches count]) {
+                            region.name = name;
+                        } else {
+                            region.name = name;
+                            for (Region *match in matches) {
+                                region.photos = [region.photos setByAddingObjectsFromSet:match.photos];
+                                region.photoCount = @([region.photos count]);
+                                region.photografers = [region.photografers setByAddingObjectsFromSet:match.photografers];
+                                region.photograferCount = @([region.photografers count]);
+                                [context deleteObject:match];
+                            }
+                        }
+                        [context save:NULL];
+                    }
+
                 });
+                
             });
 
         }
         
     }
-    for (Region * match in matches) {
-        NSLog(@"%@",match.name);
-    }
+    
 }
 
 @end

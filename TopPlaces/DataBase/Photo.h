@@ -2,7 +2,7 @@
 //  Photo.h
 //  TopPlaces
 //
-//  Created by Andrei-Daniel Anton on 01/08/14.
+//  Created by Andrei-Daniel Anton on 05/08/14.
 //  Copyright (c) 2014 Andrei-Daniel Anton. All rights reserved.
 //
 
@@ -19,6 +19,7 @@
 @property (nonatomic, retain) NSString * thumbnailURl;
 @property (nonatomic, retain) NSString * title;
 @property (nonatomic, retain) NSString * unique;
+@property (nonatomic, retain) NSDate * createDate;
 @property (nonatomic, retain) LastRegion *recent;
 @property (nonatomic, retain) Region *region;
 @property (nonatomic, retain) Photografer *whoTook;

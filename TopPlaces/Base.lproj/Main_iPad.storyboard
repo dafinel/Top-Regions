@@ -117,12 +117,6 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="Qsi-3b-RB0"/>
-                    <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="Yep-cW-fEY">
-                        <autoresizingMask key="autoresizingMask"/>
-                        <connections>
-                            <action selector="fetchPhoto" destination="Ftp-pB-Bsg" eventType="valueChanged" id="O6K-1Q-cuk"/>
-                        </connections>
-                    </refreshControl>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fua-Sb-Eqi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

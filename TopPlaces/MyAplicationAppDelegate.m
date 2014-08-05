@@ -10,8 +10,11 @@
 #import "FlickrFetcher.h"
 #import "Photo+Create.h"
 #import "Notification.h"
+#import "Reachability.h"
+#import "RefreshNotification.h"
 
 #define FLICKR_FETCH @"Flickr Just Uploaded Fetch"
+#define BACKGROUND_FLICKR_FETCH_TIMEOUT (10)
 @interface MyAplicationAppDelegate()<NSURLSessionDataDelegate>
 
 @property (nonatomic, strong)NSURLSession *flickrDownloadSession;
@@ -23,8 +26,11 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    NSURL *url = [[[NSFileManager defaultManager]URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask]firstObject];
+    [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
+    
+    NSURL *url = [[[NSFileManager defaultManager]URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
     url = [url URLByAppendingPathComponent:@"TopRegions.xcdatamodeld"];
+    NSLog(@"%@",[url absoluteString]);
     self.document = [[UIManagedDocument alloc] initWithFileURL:url];
 
     if ([[NSFileManager defaultManager] fileExistsAtPath:[url path]]) {
@@ -38,6 +44,11 @@
                   if (!success) NSLog(@"couldn’t create document ");
               }];
         }
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                            selector:@selector(startRefresh)
+                                                 name:START_REFRESH
+                                               object:nil];
+    [Photo deleteOldPhotos:self.context];
     
     return YES;
 }
@@ -49,14 +60,33 @@
     }
 }
 
+- (void)startRefresh {
+    [self startFlickrFetch];
+}
+
 - (void)setContext:(NSManagedObjectContext *)context {
     _context = context;
     
-    [NSTimer scheduledTimerWithTimeInterval:60
-                                     target:self
-                                selector:@selector(startFlickrFetch:)
-                                   userInfo:nil
-                                    repeats:YES];
+    Reachability *reach;
+    NetworkStatus status;
+    reach = [ Reachability reachabilityForLocalWiFi ];
+    status       = [ reach currentReachabilityStatus ];
+    
+    if( status == ReachableViaWiFi )
+    {
+        /* Hurray, you've got a WiFi connection! */
+        
+        NSLog(@"wifi");
+        [NSTimer scheduledTimerWithTimeInterval:60
+                                         target:self
+                                       selector:@selector(startFlickrFetch:)
+                                       userInfo:nil
+                                        repeats:YES];
+    }else {
+        NSLog(@"cellular data");
+    }
+    
+   
     
     NSDictionary *userInfo = self.context ? @{DatabaseContext : self.context} : nil;
     [[NSNotificationCenter defaultCenter] postNotificationName:DatabaseNotification object:self userInfo:userInfo];
@@ -67,7 +97,6 @@
 }
 
 - (void)startFlickrFetch {
-    NSLog(@"aici");
     [self.flickrDownloadSession getTasksWithCompletionHandler:^(NSArray *dataTasks, NSArray *uploadTasks, NSArray *downloadTasks) {
         if (![downloadTasks count]) {
             NSURLSessionDownloadTask *task = [self.flickrDownloadSession downloadTaskWithURL:[FlickrFetcher URLforRecentGeoreferencedPhotos]];
@@ -189,8 +218,57 @@ totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite
 #pragma mark -Background update
 
 - (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
-    [self startFlickrFetch];
+   /* [self startFlickrFetch];
     completionHandler(UIBackgroundFetchResultNoData);
+    */
+    
+    Reachability *reach;
+    NetworkStatus status;
+    reach = [ Reachability reachabilityForLocalWiFi ];
+    status       = [ reach currentReachabilityStatus ];
+    
+    if( status == ReachableViaWiFi )
+    {
+        /* Hurray, you've got a WiFi connection! */
+        
+        NSLog(@"wifi");
+        
+        if (self.context) {
+            NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration ephemeralSessionConfiguration];
+            sessionConfig.allowsCellularAccess = NO;
+            sessionConfig.timeoutIntervalForRequest = BACKGROUND_FLICKR_FETCH_TIMEOUT; // want to be a good background citizen!
+            NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfig];
+            NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[FlickrFetcher URLforRecentGeoreferencedPhotos]];
+            NSURLSessionDownloadTask *task = [session downloadTaskWithRequest:request
+                                                            completionHandler:^(NSURL *localFile, NSURLResponse *response, NSError *error) {
+                                                                if (error) {
+                                                                    NSLog(@"Flickr background fetch failed: %@", error.localizedDescription);
+                                                                    completionHandler(UIBackgroundFetchResultNoData);
+                                                                } else {
+                                                                    [self loadFlickrPhotosFromLocalURL:localFile
+                                                                                           intoContext:self.context
+                                                                                   andThenExecuteBlock:^{
+                                                                                       completionHandler(UIBackgroundFetchResultNewData);
+                                                                                   }
+                                                                     ];
+                                                                }
+                                                            }];
+            [task resume];
+        } else {
+            completionHandler(UIBackgroundFetchResultNoData); // no app-switcher update if no database!
+        }
+        
+    }
+    else
+    {
+        /* No WiFi connection - Alert the user! */
+        NSLog(@"cellulardata");
+    }
+    
+    
+
+    
+    
 }
 
 - (void)application:(UIApplication *)application handleEventsForBackgroundURLSession:(NSString *)identifier completionHandler:(void (^)())completionHandler {

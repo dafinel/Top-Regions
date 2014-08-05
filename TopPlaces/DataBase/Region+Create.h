@@ -12,5 +12,6 @@
 
 + (Region *)regionWithPlaceID:(NSString *)placeId andPhotografer:(Photografer *)photografer inManagedObjectContext:(NSManagedObjectContext *) context;
 + (void)loadRegionNamesFromFlickrIntoManagedObjectContext:(NSManagedObjectContext *)context;
++ (Region *)regionWithPlaceID:(NSString *)placeId andPhotografer:(Photografer *)photografer inManagedObjectContext:(NSManagedObjectContext *) context withExistingRegions:(NSMutableArray *)existingRegions;
 
 @end

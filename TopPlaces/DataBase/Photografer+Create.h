@@ -11,5 +11,8 @@
 @interface Photografer (Create)
 
 + (Photografer *)phograferWithName:(NSString *)name inManagedObjectContext:(NSManagedObjectContext *)context;
++ (Photografer *)phograferWithName:(NSString *)name
+            inManagedObjectContext:(NSManagedObjectContext *)context
+         withExistingPhotographers:(NSMutableArray *)existingPhotographers;
 
 @end

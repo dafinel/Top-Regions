@@ -68,6 +68,9 @@
                     <navigationItem key="navigationItem" id="vaB-gi-qZ1"/>
                     <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="inf-Ty-RoV">
                         <autoresizingMask key="autoresizingMask"/>
+                        <connections>
+                            <action selector="refresh" destination="o8f-fi-2U0" eventType="valueChanged" id="2G7-kn-VKH"/>
+                        </connections>
                     </refreshControl>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yJB-De-Y7n" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -117,12 +120,6 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="ydK-Po-aEp"/>
-                    <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="7oY-BH-J0a">
-                        <autoresizingMask key="autoresizingMask"/>
-                        <connections>
-                            <action selector="fetchPhoto" destination="WRk-oo-meP" eventType="valueChanged" id="4Bc-kg-hOR"/>
-                        </connections>
-                    </refreshControl>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0b8-rH-4h6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

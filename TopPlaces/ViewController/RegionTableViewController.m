@@ -10,6 +10,7 @@
 #import "Region.h"
 #import "Notification.h"
 #import "PhotosFromRegionTVC.h"
+#import "RefreshNotification.h"
 
 
 @interface RegionTableViewController ()
@@ -30,16 +31,17 @@
                                                   }];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    
-    [[NSNotificationCenter defaultCenter] addObserverForName:DatabaseNotification
-                                                      object:nil
-                                                       queue:nil
-                                                  usingBlock:^(NSNotification *note) {
-                                                      self.context = note.userInfo[DatabaseContext];
-                                                  }];
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(finishRefresh) name:STOP_REFRESH object:nil];
+}
 
+- (IBAction)refresh {
+    [[NSNotificationCenter defaultCenter] postNotificationName:START_REFRESH object:self];
+}
+
+- (void)finishRefresh {
+    [self.refreshControl endRefreshing];
 }
 
 #pragma mark - Proprieties
@@ -71,9 +73,7 @@
     cell.textLabel.text = region.name;
     cell.detailTextLabel.text = [NSString stringWithFormat:@" %@ photografer and %@ photos",region.photograferCount,region.photoCount];
     return cell;
-
 }
-
 
 #pragma mark - Navigation
 

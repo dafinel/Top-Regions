@@ -2,7 +2,7 @@
 //  Photo.m
 //  TopPlaces
 //
-//  Created by Andrei-Daniel Anton on 01/08/14.
+//  Created by Andrei-Daniel Anton on 05/08/14.
 //  Copyright (c) 2014 Andrei-Daniel Anton. All rights reserved.
 //
 
@@ -20,6 +20,7 @@
 @dynamic thumbnailURl;
 @dynamic title;
 @dynamic unique;
+@dynamic createDate;
 @dynamic recent;
 @dynamic region;
 @dynamic whoTook;
