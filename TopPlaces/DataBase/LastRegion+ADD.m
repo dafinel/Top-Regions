@@ -41,7 +41,7 @@
         last = [matches lastObject];
         last.lastView = [NSDate date];
     }
-        
+    [context save:&error];
     return last;
 }
 

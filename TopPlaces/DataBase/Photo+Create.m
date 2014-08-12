@@ -102,6 +102,7 @@
                     [newPhotos addObject:photo];
                 }
             }
+            photos = newPhotos;
         }
         request = [NSFetchRequest fetchRequestWithEntityName:@"Photografer"];
         request.predicate = [NSPredicate predicateWithFormat:@"name IN %@", [photos valueForKeyPath:FLICKR_PHOTO_OWNER]];

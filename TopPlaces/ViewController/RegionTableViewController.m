@@ -11,7 +11,8 @@
 #import "Notification.h"
 #import "PhotosFromRegionTVC.h"
 #import "RefreshNotification.h"
-
+#import "CoreDataStack.h"
+#import "CoreDataManager.h"
 
 @interface RegionTableViewController ()
 
@@ -28,6 +29,7 @@
                                                        queue:nil
                                                   usingBlock:^(NSNotification *note) {
                                                       self.context = note.userInfo[DatabaseContext];
+                                                      
                                                   }];
 }
 

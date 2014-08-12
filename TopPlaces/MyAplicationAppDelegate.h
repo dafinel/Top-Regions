@@ -7,11 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CoreDataStack.h"
+#import "CoreDataManager.h"
 
 @interface MyAplicationAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-@property (nonatomic, strong) UIManagedDocument *document;
-@property (nonatomic, strong) NSManagedObjectContext *context;
+@property (nonatomic, strong) CoreDataStack *coreData;
+@property (nonatomic, strong) CoreDataManager *manager;
 
 @end
